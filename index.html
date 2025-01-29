@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Calculator by Prashanth ks</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/lucide-svelte@0.200.0/dist/lucide-svelte.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import "https://cdn.jsdelivr.net/npm/lucide-svelte@0.200.0/dist/lucide-svelte.css";
+    </style>
+  </head>
+  <body class="bg-white flex items-center justify-center min-h-screen">
+    <div id="app" class="w-full max-w-md mx-auto mt-10">
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="flex items-center space-x-2 mb-4">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="w-6 h-6 text-pink-500"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            ></path>
+          </svg>
+          <h2 class="text-2xl font-bold">Love Calculator</h2>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <label for="name1" class="block text-sm font-medium text-gray-700"
+              >Name 1</label
+            >
+            <input
+              type="text"
+              id="name1"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter first name"
+            />
+          </div>
+          <div>
+            <label for="name2" class="block text-sm font-medium text-gray-700"
+              >Name 2</label
+            >
+            <input
+              type="text"
+              id="name2"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter second name"
+            />
+          </div>
+          <button
+            id="calculateButton"
+            class="w-full bg-indigo-600 text-white font-medium py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Calculate Love Score
+          </button>
+          <div id="result" class="mt-4">
+            <div id="score" class="text-xl font-bold"></div>
+            <div id="message" class="text-gray-600"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("calculateButton")
+        .addEventListener("click", function () {
+          const name1 = document.getElementById("name1").value.trim();
+          const name2 = document.getElementById("name2").value.trim();
+          const scoreElement = document.getElementById("score");
+          const messageElement = document.getElementById("message");
+
+          if (!name1 || !name2) {
+            messageElement.textContent = "Please enter both names.";
+            scoreElement.textContent = "";
+            return;
+          }
+
+          const combinedNames = (name1 + name2).toLowerCase();
+          const uniqueChars = new Set(combinedNames);
+          const score = Math.floor(
+            (uniqueChars.size / combinedNames.length) * 100
+          );
+
+          scoreElement.textContent = `Love Score: ${score}%`;
+
+          if (score >= 80) {
+            messageElement.textContent = "You are soulmates!";
+          } else if (score >= 50) {
+            messageElement.textContent = "You have a strong connection!";
+          } else if (score >= 30) {
+            messageElement.textContent = "There is potential, keep exploring!";
+          } else {
+            messageElement.textContent = "Maybe give it a second chance?";
+          }
+        });
+    </script>
+  </body>
+</html>
